@@ -1,0 +1,45 @@
+{
+    "tasks": [
+        {
+            "type": "cppbuild",
+            "label": "build practice",
+            "command": "/usr/bin/g++",
+            "args": [
+                "-fdiagnostics-color=always",
+                "-g",
+                "-std=c++20",
+                "${workspaceFolder}/main.cpp",
+                "${workspaceFolder}/graphs/training/Graph.cpp",
+                "${workspaceFolder}/graphs/training/WeightedGraph.cpp",
+                "${workspaceFolder}/graphs/training/UnionFind.cpp",
+                "-o",
+                "${workspaceFolder}/main"
+            ],
+            "options": {
+                "cwd": "${workspaceFolder}"
+            },
+            "problemMatcher": [
+                "$gcc"
+            ],
+            "group": {
+                "kind": "build",
+                "isDefault": true
+            },
+            "detail": "Build the single practice driver using only the training implementations."
+        },
+        {
+            "type": "shell",
+            "label": "run practice",
+            "command": "${workspaceFolder}/main",
+            "group": "test",
+            "dependsOn": "build practice",
+            "presentation": {
+                "echo": true,
+                "reveal": "always",
+                "focus": false,
+                "panel": "shared"
+            }
+        }
+    ],
+    "version": "2.0.0"
+}
