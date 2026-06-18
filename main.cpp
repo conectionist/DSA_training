@@ -5,8 +5,6 @@
 int main()
 {
     runPractice();
-    // runPractice();
-    // runPractice();
 
     return 0;
 }
