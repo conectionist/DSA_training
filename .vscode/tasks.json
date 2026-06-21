@@ -10,6 +10,8 @@
                 "-std=c++20",
                 "${workspaceFolder}/main.cpp",
                 "${workspaceFolder}/graphs/training/Graph.cpp",
+                "${workspaceFolder}/graphs/training/Edge.cpp",
+                "${workspaceFolder}/graphs/training/WeightedEdge.cpp",
                 "${workspaceFolder}/graphs/training/WeightedGraph.cpp",
                 "${workspaceFolder}/graphs/training/UnionFind.cpp",
                 "-o",
