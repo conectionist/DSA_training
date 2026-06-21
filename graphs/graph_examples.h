@@ -10,10 +10,6 @@ using std::cout, std::endl;
 inline void runPractice()
 {
     cout << "\n============================================\n" << endl;
-    cout << "Graph practice runner" << endl;
-    cout << "Uncomment one block in this file to run it." << endl;
-    cout << "\n============================================\n" << endl;
-
     // ----------------------------------------------------------
     // Basic graph examples
     // Uncomment the one you want to run.
@@ -35,24 +31,36 @@ inline void runPractice()
     // auto topo = g.getTopologicalOrder();
     // printVector(topo);
 
-    // cout << "Shortest distance from 4 to 3: "
-    //      << g.shortestDistance(4, 3) << endl;
+    Graph g(adjacencyListUndirectedGraph);
+    int a = 0;
+    int b = 1;
+    cout << "The shortest distance from " << a << " to " << b << " is "
+         << g.shortestDistance(a, b) << endl;
 
-    // cout << "Number of connected components: "
-    //      << g.componentsCount() << endl;
+    // Graph g1(adjacencyListUndirectedGraph);
+    // Graph g2(adjacencyListUndirectedGraph3Comp);
+    // cout << "Graph 1 has " << g1.componentsCount() << " connected component(s)" << endl;
+    // cout << "Graph 2 has " << g2.componentsCount() << " connected component(s)" << endl;
 
     // cout << "Graph contains a cycle (iterative): "
-    //      << (g.isCyclicIterative() ? "yes" : "no") << endl;
+    //      << (g.isCyclicIterativeForUndirectedGraph() ? "yes" : "no") << endl;
 
     // cout << "Graph contains a cycle (recursive): "
     //      << (gCyclic.isCyclicRecursive() ? "yes" : "no") << endl;
 
-    // auto sccs = g.getSCCv1();
-    // for (const auto& scc : sccs)
-    // {
-    //     printVector(scc);
-    // }
+    // Graph g(adjacencyList1);
+    // Graph gCyclic(adjacencyListWithCycle);
+    // cout << "Graph contains a cycle (iterative): "
+    //      << (g.isCyclicIterativeForDirectedGraph() ? "yes" : "no") << endl;
+    // cout << "Graph contains a cycle (iterative): "
+    //      << (gCyclic.isCyclicIterativeForDirectedGraph() ? "yes" : "no") << endl;
 
+    // Graph g(adjacencyList2);
+    // auto sccs = g.getSCCv1();
+    // cout << "The graph has " << sccs.size() << " component(s):\n";
+    // for (const auto& scc : sccs)
+    //     printVector(scc);
+    
     cout << "\n============================================\n" << endl;
 }
 
