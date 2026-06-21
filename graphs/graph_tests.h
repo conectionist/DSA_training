@@ -57,6 +57,22 @@ vector<vector<int>> adjacencyList4 =
     {6}
 };
 
+vector<vector<int>> adjacencyListUndirectedGraph = 
+{
+    {3},
+    {0,2,3},
+    {1},
+    {1}
+};
+
+vector<vector<int>> adjacencyListUndirectedGraphWithCycle = 
+{
+    {1,3},
+    {0,2,3},
+    {1},
+    {1}
+};
+
 vector<vector<int>> adjacencyListWithCycle = 
 {
     {1},
@@ -67,10 +83,18 @@ vector<vector<int>> adjacencyListWithCycle =
     {1}
 };
 
-auto& adj = adjacencyList4;
+vector<vector<int>> adjacencyListUndirectedGraph3Comp = 
+{
+    {},
+    {3},
+    {},
+    {}
+};
 
-Graph g(adj);
-Graph gCyclic(adjacencyListWithCycle);
+//auto& adj = adjacencyList1;
+
+//Graph g(adj);
+//Graph gCyclic(adjacencyListWithCycle);
 
 void process(int val) {
     cout << val + 1 << " ";
@@ -90,11 +114,11 @@ void printVector(const vector<int>& v)
     cout << v[i] << "]\n";
 }
 
-void printWeightedAdjacencyList(vector<vector<Edge>> wadj)
+void printWeightedAdjacencyList(vector<vector<WeightedEdge>> wadj)
 {
     for(int i = 0 ; i < wadj.size() ; i++)
-        for(const auto& [from, to, cost] : wadj[i])
-            cout << "Going from " << i << " to " << to << " costs " << cost << endl;
+        for(const auto& edge : wadj[i])
+            cout << "Going from " << i << " to " << edge.to << " costs " << edge.weight << endl;
 }
 
 string getEntirePath(const vector<NodePath>& shortestPaths, int from, int to)
