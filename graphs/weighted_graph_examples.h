@@ -10,22 +10,19 @@ using std::cout, std::endl;
 inline void runPractice()
 {
     cout << "\n============================================\n" << endl;
-    cout << "Weighted graph practice runner" << endl;
-    cout << "Uncomment one block in this file to run it." << endl;
-    cout << "\n============================================\n" << endl;
 
     // ----------------------------------------------------------
     // Weighted graph examples
     // Uncomment the one you want to run.
     // ----------------------------------------------------------
 
-    vector<vector<Edge>> weightedAdj =
+    vector<vector<WeightedEdge>> weightedAdj =
     {
-        {{1, 4}, {2, 8}},
-        {{0, 4}, {2, 3}, {4, 6}},
-        {{0, 8}, {1, 3}, {3, 2}},
-        {{2, 2}, {4, 10}},
-        {{1, 6}, {3, 10}}
+        {WeightedEdge(0, 1, 4), WeightedEdge(0, 2, 8)},
+        {WeightedEdge(1, 0, 4), WeightedEdge(1, 2, 3), WeightedEdge(1, 4, 6)},
+        {WeightedEdge(2, 0, 8), WeightedEdge(2, 1, 3), WeightedEdge(2, 3, 2)},
+        {WeightedEdge(3, 2, 2), WeightedEdge(3, 4, 10)},
+        {WeightedEdge(4, 1, 6), WeightedEdge(4, 3, 10)}
     };
 
     WeightedGraph weightedGraph(weightedAdj);
@@ -121,13 +118,21 @@ inline void runPractice()
     
     auto& wg = wg9;                        
 
-    // cout << "Dijkstra from node 0:" << endl;
-    // auto dijkstraPaths = weightedGraph.dijkstra(0);
-    // for (int i = 0; i < (int)dijkstraPaths.size(); ++i)
-    // {
-    //     cout << i << ": cost=" << dijkstraPaths[i].cost
-    //          << ", prev=" << dijkstraPaths[i].prev << endl;
-    // }
+    // // dijkstra
+    // int from = 0;
+    // auto shortestPaths = wg.dijkstra(from);
+
+    // cout << "Dijkstra" << endl;
+    // cout << "Cel mai scurt drum de la " << from << " la " << endl;
+    // for(int i = 0 ; i < shortestPaths.size() ; i++)
+    //     if(i != from)
+    //     {
+    //         cout << "- " << i;
+    //         if(shortestPaths[i].cost == INT_MAX)
+    //             cout << " - NU EXISTA" << endl;
+    //         else
+    //             cout << " costa " << shortestPaths[i].cost << ". Drumul complet: " << getEntirePath(shortestPaths, from, i) << endl;
+    //     }
 
     // try
     // {
@@ -173,13 +178,9 @@ inline void runPractice()
     //     cout << endl;
     // }
 
-    auto mst1 = wg.prim();
-    auto mst2 = wg.kruskal();
-    auto mst3 = wg.borukva();
-    
-    cout << "Prim:" << endl << mst1.toString() << endl;
-    cout << "Kruskal:" << endl << mst2.toString() << endl;
-    cout << "Boruvka:" << endl << mst3.toString() << endl; 
+    //cout << "Prim:"    << endl << wg.prim().toString()    << endl;
+    cout << "Kruskal:" << endl << wg.kruskal().toString() << endl;
+    //cout << "Boruvka:" << endl << wg.borukva().toString() << endl; 
 
     cout << "\n============================================\n" << endl;
 }
