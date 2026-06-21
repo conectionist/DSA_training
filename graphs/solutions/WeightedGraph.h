@@ -1,28 +1,13 @@
 #ifndef WEIGHTED_GRAPH_H
 #define WEIGHTED_GRAPH_H
 
-#include <vector>
+#include "WeightedEdge.h"
+
 #include <string>
+#include <vector>
 
-using std::vector;
 using std::string;
-
-struct Edge
-{
-    int from;
-    int to;
-    int weight;
-
-    bool operator>(const Edge& other) const
-    {
-        return weight > other.weight;
-    }
-
-    bool operator<(const Edge& other) const
-    {
-        return weight < other.weight;
-    }
-};
+using std::vector;
 
 struct NodePath
 {
@@ -34,9 +19,9 @@ class WeightedGraph
 {
 public:
     WeightedGraph(int nodeCount);
-    WeightedGraph(const vector<vector<Edge>>& adjacencyList);
+    WeightedGraph(const vector<vector<WeightedEdge>>& adjacencyList);
     void addEdge(int from, int to, int weight, bool isBidirectional = false);
-    void addEdge(const Edge& e, bool isBidirectional = false);
+    void addEdge(const WeightedEdge& e, bool isBidirectional = false);
     int getEdgeCount() const;
     vector<NodePath> dijkstra(int from);
     vector<NodePath> bellmanFord(int from);
@@ -48,8 +33,8 @@ public:
     string toString();
 
 private:
-    vector<vector<Edge>> m_adjacencyList;
-    vector<Edge> m_edgeList;
+    vector<vector<WeightedEdge>> m_adjacencyList;
+    vector<WeightedEdge> m_edgeList;
     int m_nodeCount;
 };
 
