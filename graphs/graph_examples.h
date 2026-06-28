@@ -31,11 +31,20 @@ inline void runPractice()
     // auto topo = g.getTopologicalOrder();
     // printVector(topo);
 
+    // Graph g(adjacencyListUndirectedGraph);
+    // int a = 0;
+    // int b = 1;
+    // cout << "The shortest distance from " << a << " to " << b << " is "
+    //      << g.shortestDistance(a, b) << endl;
+
     Graph g(adjacencyListUndirectedGraph);
-    int a = 0;
-    int b = 1;
-    cout << "The shortest distance from " << a << " to " << b << " is "
-         << g.shortestDistance(a, b) << endl;
+    vector<int> sources = {3};
+
+    auto dist = g.shortestDistances(sources);
+
+    for(int i = 0 ; i < dist.size() ; i++)
+        cout << "The shortest distance from " << i << " to a destination is " << dist[i] << endl;
+
 
     // Graph g1(adjacencyListUndirectedGraph);
     // Graph g2(adjacencyListUndirectedGraph3Comp);

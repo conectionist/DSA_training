@@ -37,6 +37,7 @@ public:
     vector<int> getTopologicalOrder();
 
     int shortestDistance(int a, int b);
+    vector<int> shortestDistances(const vector<int>& sources);
     int componentsCount();
 
     // uses Kosaraju's Algorithm

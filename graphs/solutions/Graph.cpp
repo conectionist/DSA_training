@@ -246,6 +246,33 @@ int Graph::shortestDistance(int a, int b)
     return -1;
 }
 
+vector<int> Graph::shortestDistances(const vector<int>& sources)
+{
+    vector<int> distances(m_nodeCount, -1);
+    queue<int> q;
+    
+    for(int source : sources)
+    {
+        distances[source] = 0;
+        q.push(source);
+    }
+
+    while(!q.empty())
+    {
+        auto current = q.front();
+        q.pop();
+
+        for(const auto& neighbor : m_adjacencyList[current])
+            if(distances[neighbor] == -1)
+            {
+                distances[neighbor] = distances[current] + 1;
+                q.push(neighbor);
+            }
+    }
+
+    return distances;
+}
+
 int Graph::componentsCount()
 {
     if(m_nodeCount == 0)

@@ -59,10 +59,10 @@ vector<vector<int>> adjacencyList4 =
 
 vector<vector<int>> adjacencyListUndirectedGraph = 
 {
-    {3},
+    {1,3},
     {0,2,3},
     {1},
-    {1}
+    {0,1}
 };
 
 vector<vector<int>> adjacencyListUndirectedGraphWithCycle = 
