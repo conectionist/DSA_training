@@ -42,40 +42,48 @@ int WeightedGraph::getEdgeCount() const
     return static_cast<int>(m_edgeList.size());
 }
 
-vector<NodePath> WeightedGraph::dijkstra(int from)
+vector<NodePath> WeightedGraph::dijkstra(int source)
 {
     vector<bool> visited(m_nodeCount, false);
-    vector<NodePath> results(m_nodeCount, {INT_MAX, -1});
+    vector<NodePath> shortestPaths(m_nodeCount, {INT_MAX, -1});
 
     // pair.first == cost
     // pair.second == to
     priority_queue<pair<int, int>, vector<pair<int, int>>, std::greater<pair<int, int>>> minHeap;
 
-    minHeap.push({0, from});
-    results[from] = {0, -1};
+    minHeap.push({0, source});
+    shortestPaths[source] = {0, -1};
 
     while(!minHeap.empty())
     {
-        auto current = minHeap.top().second;
+        auto currentNode = minHeap.top().second;
         minHeap.pop();
-        visited[current] = true;
 
-        for(const auto& edge : m_adjacencyList[current])
+        if(visited[currentNode])
+            continue;
+
+        visited[currentNode] = true;
+
+        for(const auto& edge : m_adjacencyList[currentNode])
         {
-            if(visited[edge.to])
+            auto& neighbor = edge.from;
+            auto& neighborCost = edge.weight;
+
+            if(visited[neighbor])
                 continue;
 
-            if(results[current].cost + edge.weight < results[edge.to].cost)
-            {
-                results[edge.to].cost = results[current].cost + edge.weight;
-                results[edge.to].prev = current;
-            }
+            int candidateCost = shortestPaths[currentNode].cost + neighborCost;
 
-            minHeap.push({edge.weight, edge.to});
+            if(candidateCost < shortestPaths[neighbor].cost)
+            {
+                shortestPaths[neighbor].cost = candidateCost;
+                shortestPaths[neighbor].prev = currentNode;
+                minHeap.push({candidateCost, neighbor});
+            }
         }
     }
 
-    return results;
+    return shortestPaths;
 }
 
 vector<NodePath> WeightedGraph::bellmanFord(int from)
@@ -141,19 +149,17 @@ vector<vector<int>> WeightedGraph::floydWarshall()
 WeightedGraph WeightedGraph::prim()
 {
     WeightedGraph mst(m_nodeCount);
-
     vector<bool> visited(m_nodeCount, false);
-
     priority_queue<WeightedEdge, vector<WeightedEdge>, std::greater<WeightedEdge>> minHeap;
+    int nodeCount = 0;
+    int startNode = 0;
 
-    int start = 0;
+    visited[startNode] = true;
 
-    visited[start] = true;
+    for(const auto& neighbor : m_adjacencyList[startNode])
+        minHeap.push(neighbor);
 
-    for(const auto& edge : m_adjacencyList[start])
-        minHeap.push(edge);
-
-    while(!minHeap.empty() && mst.getEdgeCount() / 2  < m_nodeCount - 1)
+    while(!minHeap.empty() && nodeCount < m_nodeCount - 1)
     {
         auto cheapest = minHeap.top();
         minHeap.pop();
@@ -162,11 +168,14 @@ WeightedGraph WeightedGraph::prim()
             continue;
 
         mst.addEdge(cheapest, true);
+        nodeCount++;
+
         visited[cheapest.to] = true;
 
-        for(const auto& edge : m_adjacencyList[cheapest.to])
-            if(!visited[edge.to])
-                minHeap.push(edge);
+        for(const auto& neighbor : m_adjacencyList[cheapest.to])
+            if(!visited[neighbor.to])
+                minHeap.push(neighbor);
+
     }
 
     return mst;
